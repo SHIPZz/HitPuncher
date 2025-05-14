@@ -1263,7 +1263,7 @@ MonoBehaviour:
   _maxHits: 10
   _shootPoint: {fileID: 3868213469089312012}
   _attackCooldown: 1
-  _damage: 2
+  _damage: 20
   _castDistance: 2
 --- !u!114 &2996634157663386013
 MonoBehaviour:
@@ -1283,7 +1283,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   _maxHits: 10
-  _doubleAttackCooldown: 0.5
+  _doubleAttackCooldown: 1
   _damage: 1
   _castDistance: 2
 --- !u!95 &3992756951424811641

@@ -27,7 +27,7 @@ namespace CodeBase.Gameplay.Heroes.ActionComponents
 
         public bool IsAttacking()
         {
-            return _heroAnimator.IsAttackAnimationPlaying() || _inputService.IsAttacking();
+            return _heroAnimator.IsAttackAnimationPlaying() || (_inputService.IsAttacking() && _gunHolder.CurrentGun.CanAttack);
         }
     }
 }

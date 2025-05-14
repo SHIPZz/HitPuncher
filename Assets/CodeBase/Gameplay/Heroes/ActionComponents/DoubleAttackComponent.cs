@@ -1,5 +1,5 @@
 using CodeBase.Gameplay.Common.Cooldowns;
-using CodeBase.Gameplay.Common.Health;
+using CodeBase.Gameplay.Common.Healths;
 using CodeBase.Gameplay.Common.HitDetection;
 using UnityEngine;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using CodeBase.Gameplay.Common.Animation;
 
 namespace CodeBase.Gameplay.Heroes
 {
@@ -40,20 +41,12 @@ namespace CodeBase.Gameplay.Heroes
             IsAnimationPlaying(AttackStateHash);
 
         public bool IsDoubleAttackAnimationPlaying() => 
-            IsAnimationPlaying("DoubleAttack");
+            IsAnimationPlaying(DoubleAttackStateHash);
 
         private bool IsAnimationPlaying(int animationHash)
         {
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-            
             return stateInfo.shortNameHash == animationHash && stateInfo.normalizedTime < 1f;
-        }
-        
-        private bool IsAnimationPlaying(string animationHash)
-        {
-            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-            
-            return stateInfo.IsName(animationHash) && stateInfo.normalizedTime < 1f;
         }
     }
 }

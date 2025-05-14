@@ -441,6 +441,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2996634157663386013, guid: b1c1a6ea5c3376b478fbcf9bcaaf5a16, type: 3}
+      propertyPath: _firstShootPoint
+      value: 
+      objectReference: {fileID: 3392233111744612672}
+    - target: {fileID: 2996634157663386013, guid: b1c1a6ea5c3376b478fbcf9bcaaf5a16, type: 3}
+      propertyPath: _secondShootPoint
+      value: 
+      objectReference: {fileID: 3392233111744612672}
+    - target: {fileID: 4039078552475802212, guid: b1c1a6ea5c3376b478fbcf9bcaaf5a16, type: 3}
+      propertyPath: _shootPoint
+      value: 
+      objectReference: {fileID: 3392233111744612672}
     - target: {fileID: 6543730010625349077, guid: b1c1a6ea5c3376b478fbcf9bcaaf5a16, type: 3}
       propertyPath: m_Name
       value: Hands_Without_Weapon

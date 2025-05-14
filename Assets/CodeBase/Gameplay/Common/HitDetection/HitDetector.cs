@@ -19,6 +19,8 @@ namespace CodeBase.Gameplay.Common.HitDetection
         public IEnumerable<T> DetectHits<T>(Vector3 origin, Vector3 direction, float distance) where T : Component
         {
             int hitCount = Physics.RaycastNonAlloc(origin, direction, _hits, distance, _layerMask);
+
+            Debug.Log($"hitcount - {hitCount}");
             
             Debug.DrawRay(origin, direction * distance, Color.yellow,1f);
             
@@ -26,6 +28,7 @@ namespace CodeBase.Gameplay.Common.HitDetection
             {
                 if (_hits[i].collider.TryGetComponent<T>(out var component))
                 {
+                    Debug.Log($"{component.gameObject.name}");
                     yield return component;
                 }
             }
