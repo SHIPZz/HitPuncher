@@ -1,4 +1,5 @@
-﻿using CodeBase.UI.AbstractWindow;
+﻿using CodeBase.Gameplay.Effects;
+using CodeBase.UI.AbstractWindow;
 using CodeBase.UI.Sound;
 using CodeBase.UI.Sound.Configs;
 
@@ -10,5 +11,6 @@ namespace CodeBase.StaticData
         SoundConfig GetSoundConfig(SoundTypeId soundTypeId);
         TWindow GetWindow<TWindow>() where TWindow : AbstractWindowBase;
         SoundPlayerView GetSoundPlayerViewPrefab();
+        EffectConfig GetEffectConfig(EffectTypeId effectTypeId);
     }
 }

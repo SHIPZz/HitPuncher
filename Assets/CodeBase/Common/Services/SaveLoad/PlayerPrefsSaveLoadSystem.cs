@@ -13,7 +13,7 @@ namespace CodeBase.Common.Services.SaveLoad
         {
             string jsonData = JsonConvert.SerializeObject(data,Formatting.Indented,
                 new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
-            
+
             PlayerPrefs.SetString(DataKey, jsonData);
             PlayerPrefs.Save();
         }

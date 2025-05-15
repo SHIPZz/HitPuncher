@@ -3,6 +3,8 @@ using CodeBase.Common.Services.SaveLoad;
 using CodeBase.Infrastructure.States.StateInfrastructure;
 using CodeBase.Infrastructure.States.StateMachine;
 using CodeBase.StaticData;
+using CodeBase.UI.Game;
+using CodeBase.UI.LoadingCurtains;
 using CodeBase.UI.Menu;
 using CodeBase.UI.Services.Window;
 using CodeBase.UI.Settings;
@@ -20,7 +22,7 @@ namespace CodeBase.Infrastructure.States.States
 
         public BootstrapState(IStateMachine stateMachine,
             IWindowService windowService,
-            IPersistentService persistentService, 
+            IPersistentService persistentService,
             ISaveOnApplicationPauseSystem saveOnApplicationPauseSystem,
             IStaticDataService staticDataService)
         {
@@ -33,13 +35,17 @@ namespace CodeBase.Infrastructure.States.States
 
         public void Enter()
         {
+            LoadData();
+            
             _staticDataService.LoadAll();
 
             BindWindows();
-            
-            LoadData();
-            
-            _stateMachine.Enter<LoadGameState>();
+
+            _windowService.OpenWindow<LoadingCurtainWindow>();
+
+            _saveOnApplicationPauseSystem.Initialize();
+
+            _stateMachine.Enter<LoadingMenuState>();
         }
 
         private void LoadData()
@@ -49,9 +55,11 @@ namespace CodeBase.Infrastructure.States.States
 
         private void BindWindows()
         {
-            // _windowService.Bind<MenuWindow,MenuWindowController>();
-            // _windowService.Bind<SettingsWindow,SettingsWindowController>();
-            // _windowService.Bind<VictoryWindow,VictoryWindowController>();
+            _windowService.Bind<MenuWindow, MenuWindowController>();
+            _windowService.Bind<LoadingCurtainWindow, LoadingCurtainWindowController>();
+            _windowService.Bind<SettingsWindow, SettingsWindowController>();
+            _windowService.Bind<VictoryWindow, VictoryWindowController>();
+            _windowService.Bind<GameWindow, GameWindowController>();
         }
 
         public void Exit() { }

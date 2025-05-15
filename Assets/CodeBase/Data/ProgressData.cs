@@ -11,6 +11,6 @@ namespace CodeBase.Data
     [Serializable]
     public class SettingsData
     {
-        public bool IsSoundEnabled;
+        public bool IsSoundEnabled = true;
     }
 }

@@ -88,5 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb314a1e5ec4d8d9fc9176954bf07f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelDataSo: {fileID: 11400000, guid: 11674c25eecb93d4b82bf477c2abeaee, type: 2}
-  _hintConfig: {fileID: 11400000, guid: 301ff1f94b914434fb2db28fa34c69d7, type: 2}
+  _heroConfig: {fileID: 0}
+  _cameraConfig: {fileID: 11400000, guid: 12810fa18aa10da43be7e66e19f4752b, type: 2}

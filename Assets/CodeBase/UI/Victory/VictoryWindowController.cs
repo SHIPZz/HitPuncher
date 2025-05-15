@@ -30,29 +30,14 @@ namespace CodeBase.UI.Victory
         {
             _soundService.Play(SoundTypeId.Victory);
             
-            _window.OnNextLevelClicked
-                .Subscribe(_ => OnNextLevelClicked())
-                .AddTo(_disposables);
-
             _window.OnMainMenuClicked
                 .Subscribe(_ => OnMainMenuClicked())
                 .AddTo(_disposables);
         }
 
-        public void BindView(VictoryWindow window)
-        {
-            _window = window;
-        }
+        public void BindView(VictoryWindow window) => _window = window;
 
-        public void Dispose()
-        {
-            _disposables.Dispose();
-        }
-
-        private void OnNextLevelClicked()
-        {
-            _windowService.Close<VictoryWindow>();
-        }
+        public void Dispose() => _disposables.Dispose();
 
         private void OnMainMenuClicked()
         {

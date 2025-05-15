@@ -1,11 +1,14 @@
+using System;
+using System.Linq;
 using CodeBase.Gameplay.Common.Cooldowns;
 using CodeBase.Gameplay.Common.Healths;
 using CodeBase.Gameplay.Common.HitDetection;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Gameplay.Heroes.ActionComponents
 {
-    public class DoubleAttackComponent : MonoBehaviour
+    public class DoubleAttackComponent : MonoBehaviour, IHitTrigger
     {
         [SerializeField] private Transform _firstShootPoint;
         [SerializeField] private Transform _secondShootPoint;
@@ -15,10 +18,13 @@ namespace CodeBase.Gameplay.Heroes.ActionComponents
         [SerializeField] private float _damage = 1f;
         [SerializeField] private float _castDistance = 2f;
         
+        private readonly Subject<RaycastHit> _onHit = new();
+        
         private HitDetector _hitDetector;
         private Cooldown _cooldown;
         
         public bool CanDoubleAttack => _cooldown.IsReady.Value;
+        public IObservable<RaycastHit> OnHit => _onHit;
 
         private void Awake()
         {
@@ -41,9 +47,9 @@ namespace CodeBase.Gameplay.Heroes.ActionComponents
                 health.TakeDamage(_damage);
             }
             
-            _hitDetector.ClearHits();
+            SendHitEvent();
         }
-        
+
         public void OnSecondAttackAnimation()
         {
             foreach (Health health in _hitDetector.DetectHits<Health>(_secondShootPoint.position, _secondShootPoint.forward, _castDistance))
@@ -51,7 +57,14 @@ namespace CodeBase.Gameplay.Heroes.ActionComponents
                 health.TakeDamage(_damage);
             }
             
+            SendHitEvent();
+            
             _hitDetector.ClearHits();
+        }
+
+        private void SendHitEvent()
+        {
+            _onHit.OnNext(_hitDetector.Hits.FirstOrDefault());
         }
     }
 } 

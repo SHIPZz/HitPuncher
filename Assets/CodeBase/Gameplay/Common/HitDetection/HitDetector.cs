@@ -8,6 +8,8 @@ namespace CodeBase.Gameplay.Common.HitDetection
         private readonly RaycastHit[] _hits;
         private readonly int _maxHits;
         private readonly LayerMask _layerMask;
+        
+        public int HitCount { get; private set; }
 
         public HitDetector(int maxHits, LayerMask layerMask)
         {
@@ -16,22 +18,24 @@ namespace CodeBase.Gameplay.Common.HitDetection
             _layerMask = layerMask;
         }
 
+        public IReadOnlyCollection<RaycastHit> Hits => _hits;
+
         public IEnumerable<T> DetectHits<T>(Vector3 origin, Vector3 direction, float distance) where T : Component
         {
             int hitCount = Physics.RaycastNonAlloc(origin, direction, _hits, distance, _layerMask);
 
-            Debug.Log($"hitcount - {hitCount}");
-            
             Debug.DrawRay(origin, direction * distance, Color.yellow,1f);
             
             for (int i = 0; i < hitCount; i++)
             {
                 if (_hits[i].collider.TryGetComponent<T>(out var component))
                 {
-                    Debug.Log($"{component.gameObject.name}");
+                    Debug.Log($"{component.gameObject.name} hit");
                     yield return component;
                 }
             }
+            
+            HitCount = hitCount;
         }
 
         public void ClearHits()
@@ -40,6 +44,8 @@ namespace CodeBase.Gameplay.Common.HitDetection
             {
                 _hits[i] = default;
             }
+            
+            HitCount = 0;
         }
     }
 } 

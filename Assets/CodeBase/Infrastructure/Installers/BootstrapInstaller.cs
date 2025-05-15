@@ -1,6 +1,13 @@
 ﻿using CodeBase.Common.Services.Input;
+using CodeBase.Common.Services.Levels;
 using CodeBase.Common.Services.Persistent;
 using CodeBase.Common.Services.SaveLoad;
+using CodeBase.Gameplay.Cameras;
+using CodeBase.Gameplay.Effects;
+using CodeBase.Gameplay.Enemies.Factory;
+using CodeBase.Gameplay.Enemies.Services;
+using CodeBase.Gameplay.Heroes.Factory;
+using CodeBase.Gameplay.Heroes.Services;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Loading;
 using CodeBase.Infrastructure.States.Factory;
@@ -21,12 +28,31 @@ namespace CodeBase.Infrastructure.Installers
             BindInfrastructureServices();
             BindAssetManagementServices();
             BindCommonServices();
+            BindGameplayFactories();
+            BindGameplayServices();
             BindUIServices();
             BindStates();
 
             Container.BindInterfacesAndSelfTo<StateMachine>().AsSingle();
         }
-        
+
+        private void BindGameplayServices()
+        {
+            Container.Bind<IEnemyService>().To<EnemyService>().AsSingle();
+            Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
+            Container.Bind<ICameraShakeService>().To<CameraShakeService>().AsSingle();
+            Container.Bind<ILevelProvider>().To<LevelProvider>().AsSingle();
+            Container.Bind<IHeroProvider>().To<HeroProvider>().AsSingle();
+            Container.BindInterfacesTo<SoundService>().AsSingle();
+            Container.BindInterfacesTo<SoundFactory>().AsSingle();
+        }
+
+        private void BindGameplayFactories()
+        {
+            Container.Bind<IHeroFactory>().To<HeroFactory>().AsSingle();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
+            Container.Bind<IEffectFactory>().To<EffectFactory>().AsSingle();
+        }
 
         private void BindUIServices()
         {
@@ -34,12 +60,13 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<IUIProvider>().To<UIProvider>().AsSingle();
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
         }
-        
+
         private void BindStates()
         {
             Container.BindInterfacesAndSelfTo<BootstrapState>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadingMenuState>().AsSingle();
             Container.BindInterfacesAndSelfTo<MenuState>().AsSingle();
+            Container.BindInterfacesAndSelfTo<VictoryState>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadGameState>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameState>().AsSingle();
         }
@@ -61,8 +88,6 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<IPersistentService>().To<PersistentService>().AsSingle();
             Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
             Container.Bind<ISaveLoadSystem>().To<PlayerPrefsSaveLoadSystem>().AsSingle();
-            Container.BindInterfacesTo<SoundService>().AsSingle();
-            Container.BindInterfacesTo<SoundFactory>().AsSingle();
             Container.BindInterfacesTo<SaveOnApplicationFocusChangedSystem>().AsSingle();
         }
 

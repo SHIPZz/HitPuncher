@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Common.Services.SaveLoad;
 using CodeBase.Data;
 using Cysharp.Threading.Tasks;
@@ -7,25 +8,16 @@ namespace CodeBase.Common.Services.Persistent
 {
     public class PersistentService : IPersistentService
     {
-        private readonly List<IProgressWatcher> _progressWatchers = new();
+        private readonly List<IProgressWatcher> _progressWatchers;
 
         private readonly ISaveLoadSystem _saveLoadSystem;
         
         private ProgressData _currentProgress;
-        
-        public ProgressData CurrentProgress => _currentProgress;
 
-        public PersistentService(ISaveLoadSystem saveLoadSystem)
+        public PersistentService(ISaveLoadSystem saveLoadSystem, IEnumerable<IProgressWatcher> progressWatchers)
         {
+            _progressWatchers = progressWatchers.ToList();
             _saveLoadSystem = saveLoadSystem;
-        }
-
-        public void RegisterProgressWatcher(IProgressWatcher progressWatcher)
-        {
-            if (!_progressWatchers.Contains(progressWatcher))
-            {
-                _progressWatchers.Add(progressWatcher);
-            }
         }
 
         public async UniTaskVoid Load()
@@ -42,7 +34,7 @@ namespace CodeBase.Common.Services.Persistent
                 progressWatcher.Load(_currentProgress);
             }
         }
-        
+
         public void Save()
         {
             foreach (IProgressWatcher progressWatcher in _progressWatchers)

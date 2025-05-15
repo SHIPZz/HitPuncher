@@ -8,40 +8,39 @@ namespace CodeBase.Gameplay.Common.Healths
     {
         [SerializeField] private float _maxHealth = 100f;
 
-        private ReactiveProperty<float> _currentHealth = new();
+        [SerializeField] private float _currentHealth = new();
+
         private readonly Subject<Unit> _died = new Subject<Unit>();
         private readonly Subject<float> _onDamageTaken = new();
 
-        public IReadOnlyReactiveProperty<float> CurrentHealth => _currentHealth;
-        public float MaxHealth => _maxHealth;
         public IObservable<Unit> Died => _died;
         public IObservable<float> DamageTaken => _onDamageTaken;
 
+        public bool Dead { get; private set; }
+
         private void Awake()
         {
-            _currentHealth.Value = _maxHealth;
+            _currentHealth = _maxHealth;
         }
-
-        public void SetMaxHealth(float maxHealth) => _maxHealth = maxHealth;
-
-        public void Heal(float heal) => SetHealth(_currentHealth.Value + heal);
 
         public void TakeDamage(float damage)
         {
-            if (_currentHealth.Value <= 0)
+            if (_currentHealth <= 0)
                 return;
 
-            SetHealth(_currentHealth.Value - damage);
-            _onDamageTaken.OnNext(_currentHealth.Value);
+            SetHealth(_currentHealth - damage);
         }
 
         private void SetHealth(float health)
         {
-            _currentHealth.Value = Mathf.Clamp(health, 0, _maxHealth);
+            _currentHealth = Mathf.Clamp(health, 0, _maxHealth);
 
-            if (_currentHealth.Value <= 0)
+            _onDamageTaken.OnNext(_currentHealth);
+
+            if (_currentHealth <= 0)
             {
                 _died.OnNext(Unit.Default);
+                Dead = true;
             }
         }
     }

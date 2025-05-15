@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodeBase.Common.Services.Persistent;
 using CodeBase.Data;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Sound.Services
 {
-    public class SoundService : ISoundService, IProgressWatcher, IInitializable, IDisposable
+    public class SoundService : ISoundService, IProgressWatcher
     {
-        private readonly IPersistentService _persistentService;
         private readonly ISoundFactory _soundFactory;
 
         private readonly Dictionary<SoundTypeId, SoundPlayerView> _soundPlayers = new();
@@ -18,19 +15,16 @@ namespace CodeBase.UI.Sound.Services
 
         public bool IsSoundEnabled => _isSoundEnabled;
 
-        public SoundService(IPersistentService persistentService, ISoundFactory soundFactory)
+        public SoundService(ISoundFactory soundFactory)
         {
             _soundFactory = soundFactory;
-            _persistentService = persistentService;
         }
-
-        public void Initialize() => _persistentService.RegisterProgressWatcher(this);
-
+        
         public void Load(ProgressData progressData)
         {
             _isSoundEnabled = progressData.SettingsData.IsSoundEnabled;
 
-            ApplySoundState();
+            SetSoundEnabled(_isSoundEnabled);
         }
 
         public void Play(SoundTypeId soundTypeId)
@@ -50,15 +44,16 @@ namespace CodeBase.UI.Sound.Services
             soundPlayerView.Play();
         }
 
-        public void Save(ProgressData progressData) => progressData.SettingsData.IsSoundEnabled = _isSoundEnabled;
+        public void Save(ProgressData progressData)
+        {
+            progressData.SettingsData.IsSoundEnabled = _isSoundEnabled;
+        }
 
         public void SetSoundEnabled(bool enabled)
         {
             _isSoundEnabled = enabled;
             ApplySoundState();
         }
-
-        public void Dispose() => _persistentService.UnregisterProgressWatcher(this);
 
         private void ApplySoundState() => AudioListener.volume = _isSoundEnabled ? 1f : 0f;
     }

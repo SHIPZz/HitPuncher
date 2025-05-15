@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed41fcdd85e845b0aa20c3784c84db06, type: 3}
   m_Name: Victory
   m_EditorClassIdentifier: 
-  Id: 6
+  Id: 3
   Clip: {fileID: 8300000, guid: 6e7a5fbcbc965704399cfdbfb2cf843f, type: 3}
