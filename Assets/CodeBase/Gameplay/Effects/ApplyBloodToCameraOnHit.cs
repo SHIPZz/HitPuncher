@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Animations;
+using CodeBase.Gameplay.Guns;
 using CodeBase.Gameplay.Heroes.ActionComponents;
 using UniRx;
 using UnityEngine;
