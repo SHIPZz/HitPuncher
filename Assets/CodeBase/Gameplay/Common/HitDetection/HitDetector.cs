@@ -6,12 +6,10 @@ namespace CodeBase.Gameplay.Common.HitDetection
     public class HitDetector
     {
         private readonly RaycastHit[] _hits;
-        private readonly int _maxHits;
         private readonly LayerMask _layerMask;
         
         public HitDetector(int maxHits, LayerMask layerMask)
         {
-            _maxHits = maxHits;
             _hits = new RaycastHit[maxHits];
             _layerMask = layerMask;
         }

@@ -1,6 +1,5 @@
 using CodeBase.Gameplay.Guns;
 using CodeBase.Gameplay.Heroes.ActionComponents;
-using CodeBase.Gameplay.Heroes.Config;
 using CodeBase.Gameplay.Heroes.States;
 using CodeBase.Gameplay.Heroes.States.Factory;
 using UnityEngine;

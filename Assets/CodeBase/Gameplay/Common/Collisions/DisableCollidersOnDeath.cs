@@ -1,7 +1,8 @@
-﻿using UniRx;
+﻿using CodeBase.Gameplay.Common.Healths;
+using UniRx;
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Common.Healths
+namespace CodeBase.Gameplay.Common.Collisions
 {
     public class DisableCollidersOnDeath : MonoBehaviour
     {
