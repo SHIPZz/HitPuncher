@@ -298,37 +298,32 @@ MonoBehaviour:
   _bodyParts:
   - bodyPart: {fileID: 1863843976803252832}
     healthThreshold: 80
-    fallDirection: {x: -0.5, y: 0.5, z: 3}
-    fallDistance: 0.5
-    fallDuration: 0.5
+    fallDirection: {x: -2, y: 0.5, z: 3}
+    fallDuration: 0.6
     fallEase: 7
     hasFallen: 0
   - bodyPart: {fileID: 7630044801823748576}
     healthThreshold: 60
-    fallDirection: {x: 0, y: 0, z: -0.8}
-    fallDistance: 1
-    fallDuration: 0.8
+    fallDirection: {x: 0, y: 0, z: -2}
+    fallDuration: 0.6
     fallEase: 7
     hasFallen: 0
   - bodyPart: {fileID: 582587008133126425}
     healthThreshold: 40
-    fallDirection: {x: 1.5, y: 0.5, z: 3}
-    fallDistance: 0.5
-    fallDuration: 0.5
+    fallDirection: {x: -3, y: 0.5, z: 3}
+    fallDuration: 0.6
     fallEase: 7
     hasFallen: 0
   - bodyPart: {fileID: 8572208564031196358}
     healthThreshold: 20
-    fallDirection: {x: 0.5, y: 0.5, z: 3}
-    fallDistance: 0.5
-    fallDuration: 0.5
+    fallDirection: {x: 2, y: 0.5, z: 3}
+    fallDuration: 0.6
     fallEase: 7
     hasFallen: 0
   - bodyPart: {fileID: 6634105571991611547}
     healthThreshold: 0
-    fallDirection: {x: -0.5, y: 0.5, z: 3}
-    fallDistance: 0.3
-    fallDuration: 0.5
+    fallDirection: {x: 3, y: 0.5, z: 3}
+    fallDuration: 0.6
     fallEase: 7
     hasFallen: 0
 --- !u!114 &4240611681372209918
@@ -376,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd13cb175054b668e73982d6d05bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyDelay: 1
+  _destroyDelay: 2
 --- !u!1 &6152749491490600209
 GameObject:
   m_ObjectHideFlags: 0

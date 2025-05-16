@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using CodeBase.StaticData;
 using CodeBase.UI.AbstractWindow;
 using CodeBase.UI.Controllers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +14,7 @@ namespace CodeBase.UI.Services.Window
     {
         private const int BaseSortingOrder = 100;
         private const int TopSortingOrder = 1000;
-        
+
         private readonly IInstantiator _instantiator;
         private readonly IStaticDataService _staticDataService;
         private readonly IUIProvider _uiProvider;
@@ -70,6 +72,13 @@ namespace CodeBase.UI.Services.Window
             };
         }
 
+        public async UniTask<TWindow> OpenWindowAsync<TWindow>(bool onTop = false, float delay = 1f, CancellationToken token = default) where TWindow : AbstractWindowBase
+        {
+            await UniTask.WaitForSeconds(delay, cancellationToken: token);
+            
+            return OpenWindow<TWindow>(onTop);
+        }
+
         public TWindow OpenWindow<TWindow>(bool onTop = false) where TWindow : AbstractWindowBase
         {
             Type windowType = typeof(TWindow);
@@ -84,9 +93,11 @@ namespace CodeBase.UI.Services.Window
                 return window;
             }
 
-            TWindow createdWindow = _instantiator.InstantiatePrefabForComponent<TWindow>(bindingInfo.Prefab, _uiProvider.MainUI);
+            TWindow createdWindow =
+                _instantiator.InstantiatePrefabForComponent<TWindow>(bindingInfo.Prefab, _uiProvider.MainUI);
 
-            IController<TWindow> controller = (IController<TWindow>)_instantiator.Instantiate(bindingInfo.ControllerType);
+            IController<TWindow> controller =
+                (IController<TWindow>)_instantiator.Instantiate(bindingInfo.ControllerType);
 
             BindModelIfHas(bindingInfo, controller);
 
@@ -111,7 +122,8 @@ namespace CodeBase.UI.Services.Window
         {
             var windowType = typeof(TWindow);
 
-            if (!_activeWindows.TryGetValue(windowType, out (AbstractWindowBase Window, IController Controller) windowData))
+            if (!_activeWindows.TryGetValue(windowType,
+                    out (AbstractWindowBase Window, IController Controller) windowData))
                 return;
 
             windowData.Window.Close();
@@ -134,7 +146,7 @@ namespace CodeBase.UI.Services.Window
                 if (windowData.Controller is IDisposable disposable)
                     disposable.Dispose();
             }
-            
+
             _activeWindows.Clear();
             _currentSortingOrder = BaseSortingOrder;
         }

@@ -1,8 +1,9 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 
 namespace CodeBase.Gameplay.Cameras
 {
-    public class CameraShakeService : ICameraShakeService
+    public class CameraShakeService : ICameraShakeService, IDisposable
     {
         private readonly ICameraProvider _cameraProvider;
         private Tween _tween;
@@ -17,6 +18,11 @@ namespace CodeBase.Gameplay.Cameras
             _tween?.Kill(true);
 
             _tween = _cameraProvider.MainCamera.transform.DOShakeRotation(duration, strength, vibrato, randomness);
+        }
+
+        public void Dispose()
+        {
+            _tween?.Kill();
         }
     }
 }

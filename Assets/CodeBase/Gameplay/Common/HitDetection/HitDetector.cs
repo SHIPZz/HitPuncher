@@ -9,8 +9,6 @@ namespace CodeBase.Gameplay.Common.HitDetection
         private readonly int _maxHits;
         private readonly LayerMask _layerMask;
         
-        public int HitCount { get; private set; }
-
         public HitDetector(int maxHits, LayerMask layerMask)
         {
             _maxHits = maxHits;
@@ -34,18 +32,6 @@ namespace CodeBase.Gameplay.Common.HitDetection
                     yield return component;
                 }
             }
-            
-            HitCount = hitCount;
-        }
-
-        public void ClearHits()
-        {
-            for (int i = 0; i < _maxHits; i++)
-            {
-                _hits[i] = default;
-            }
-            
-            HitCount = 0;
         }
     }
 } 

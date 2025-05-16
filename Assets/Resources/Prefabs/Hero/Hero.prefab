@@ -336,6 +336,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3013091341143524245}
+  - {fileID: 8512123254724098560}
   m_Father: {fileID: 1769202936198665459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7485962414280146347
@@ -418,8 +419,8 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
+    m_Bits: 512
+  m_VolumeTrigger: {fileID: 8512123254724098560}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 1
@@ -594,6 +595,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8320245949557330238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1750834415971145388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8512123254724098560}
+  - component: {fileID: 7606779511680653697}
+  - component: {fileID: 6574434963455823461}
+  m_Layer: 9
+  m_Name: BloodVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8512123254724098560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750834415971145388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 923961511070319980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7606779511680653697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750834415971145388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 305df9c2ebeabfa4e8a6bdf9b17218ec, type: 2}
+--- !u!114 &6574434963455823461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750834415971145388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b324777f900f4ebda5d16b90556f405b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _volume: {fileID: 7606779511680653697}
+  _targetIntensity: 0.4
+  _inDuration: 0.1
+  _outDuration: 0.5
 --- !u!1 &1813209969993200939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,6 +1761,7 @@ GameObject:
   - component: {fileID: 3777527807308144671}
   - component: {fileID: 7167812824145145297}
   - component: {fileID: 5233698777906289859}
+  - component: {fileID: 7942001579616110500}
   m_Layer: 6
   m_Name: Hands_Without_Weapon
   m_TagString: Untagged
@@ -1747,14 +1815,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c756e8c44a5de243819f2889075410f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mask:
+  Mask:
     serializedVersion: 2
-    m_Bits: 311
-  _maxHits: 10
+    m_Bits: 256
+  MaxHits: 10
+  Damage: 20
+  CastDistance: 2
+  Cooldown: 1
   _shootPoint: {fileID: 1769202936198665459}
-  _attackCooldown: 1
-  _damage: 20
-  _castDistance: 2
 --- !u!114 &2386010460414471187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,15 +1835,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afde3ee69bf8484682f95d6f179f09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mask:
+    serializedVersion: 2
+    m_Bits: 256
+  MaxHits: 10
+  Damage: 10
+  CastDistance: 2
+  Cooldown: 1
   _firstShootPoint: {fileID: 1769202936198665459}
   _secondShootPoint: {fileID: 1769202936198665459}
-  _mask:
-    serializedVersion: 2
-    m_Bits: 311
-  _maxHits: 10
-  _doubleAttackCooldown: 1
-  _damage: 10
-  _castDistance: 2
 --- !u!95 &4206511695725703027
 Animator:
   serializedVersion: 5
@@ -1835,10 +1903,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundTypeId: 1
-  _useCustomPosition: 0
-  _customPosition: {x: 2, y: 3, z: 4}
   _addRandomOffset: 1
   _randomOffsetRadius: 0.5
+--- !u!114 &7942001579616110500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203717683021395947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac52da150e204f0c81639da322575842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vignetteAnimator: {fileID: 6574434963455823461}
 --- !u!1 &7350770560018426849
 GameObject:
   m_ObjectHideFlags: 0

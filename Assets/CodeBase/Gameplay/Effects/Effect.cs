@@ -9,6 +9,7 @@ namespace CodeBase.Gameplay.Effects
         public void Play()
         {
             _particleSystem.Play();
+            Destroy(gameObject,1f);
         }
     }
 } 

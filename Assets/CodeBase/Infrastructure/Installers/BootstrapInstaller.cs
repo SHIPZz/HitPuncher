@@ -40,7 +40,7 @@ namespace CodeBase.Infrastructure.Installers
         {
             Container.Bind<IEnemyService>().To<EnemyService>().AsSingle();
             Container.Bind<ICameraProvider>().To<CameraProvider>().AsSingle();
-            Container.Bind<ICameraShakeService>().To<CameraShakeService>().AsSingle();
+            Container.BindInterfacesTo<CameraShakeService>().AsSingle();
             Container.Bind<ILevelProvider>().To<LevelProvider>().AsSingle();
             Container.Bind<IHeroProvider>().To<HeroProvider>().AsSingle();
             Container.BindInterfacesTo<SoundService>().AsSingle();

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CodeBase.Gameplay.Common.Healths;
 using DG.Tweening;
@@ -7,22 +6,12 @@ using UnityEngine;
 
 namespace CodeBase.Gameplay.BodyPartDetachments
 {
-    [Serializable]
-    public class BodyPartConfig
-    {
-        public GameObject bodyPart;
-        public float healthThreshold;
-        public Vector3 fallDirection = Vector3.down;
-        public float fallDistance = 2f;
-        public float fallDuration = 1f;
-        public Ease fallEase = Ease.OutBounce;
-        public bool hasFallen;
-    }
-
     public class BodyPartDetachment : MonoBehaviour
     {
         [SerializeField] private Health _health;
         [SerializeField] private List<BodyPartConfig> _bodyParts = new List<BodyPartConfig>();
+
+        private Tween _moveTween;
 
         private void Awake()
         {
@@ -45,15 +34,23 @@ namespace CodeBase.Gameplay.BodyPartDetachments
 
         private void DetachBodyPart(BodyPartConfig config)
         {
-            if (config.bodyPart == null) 
+            if (config.bodyPart == null)
                 return;
 
             config.hasFallen = true;
-            
-            config.bodyPart.transform.DOMove(config.fallDirection, config.fallDuration)
+
+            Vector3 targetLocalPos = config.bodyPart.transform.localPosition + config.fallDirection;
+
+            _moveTween?.Kill();
+
+            _moveTween = config.bodyPart.transform.DOLocalMove(targetLocalPos, config.fallDuration)
                 .SetEase(config.fallEase)
                 .OnComplete(() => config.bodyPart.gameObject.SetActive(false));
-            
+        }
+
+        private void OnDestroy()
+        {
+            _moveTween?.Kill();
         }
     }
-} 
+}

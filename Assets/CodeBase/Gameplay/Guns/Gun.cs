@@ -8,11 +8,11 @@ namespace CodeBase.Gameplay.Guns
         private AttackComponent _attackComponent;
         private DoubleAttackComponent _doubleAttackComponent;
 
-        public bool CanAttack => _attackComponent.CanAttack.Value;
+        public bool CanAttack => _attackComponent.CanAttack;
 
-        public bool CanDoubleAttack => _doubleAttackComponent != null && _doubleAttackComponent.CanDoubleAttack;
+        public bool CanDoubleAttack => _doubleAttackComponent != null && _doubleAttackComponent.CanAttack;
 
-        public bool HasDoubleAttack => _doubleAttackComponent != null;
+        private bool HasDoubleAttack => _doubleAttackComponent != null;
 
         private void Awake()
         {
@@ -29,7 +29,7 @@ namespace CodeBase.Gameplay.Guns
         public void DoubleAttack()
         {
             if (HasDoubleAttack)
-                _doubleAttackComponent.DoubleAttack();
+                _doubleAttackComponent.Attack();
         }
     }
 }

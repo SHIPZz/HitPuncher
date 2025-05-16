@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Gameplay.Common.Healths;
 using UnityEngine;
 
@@ -8,6 +7,6 @@ namespace CodeBase.Gameplay.Enemies
     {
         [SerializeField] private Health _health;
         
-        public bool IsDead => _health.Dead && gameObject == null;
+        public bool IsDead => _health.Dead;
     }
 } 

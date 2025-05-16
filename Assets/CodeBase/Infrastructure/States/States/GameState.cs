@@ -3,6 +3,7 @@ using CodeBase.Gameplay.Cameras;
 using CodeBase.Gameplay.Enemies;
 using CodeBase.Gameplay.Enemies.Factory;
 using CodeBase.Gameplay.Enemies.Services;
+using CodeBase.Gameplay.Guns;
 using CodeBase.Gameplay.Heroes;
 using CodeBase.Gameplay.Heroes.Factory;
 using CodeBase.Gameplay.Heroes.Services;
@@ -64,12 +65,32 @@ namespace CodeBase.Infrastructure.States.States
             }
         }
 
+        public void Exit()
+        {
+            DestroyEnemies();
+            ExtractCamera();
+            DestroyHero();
+        }
+
+        private void DestroyHero()
+        {
+            Gun currentGun = _heroProvider.Hero.GetComponent<GunHolder>().CurrentGun;
+            
+            Object.Destroy(_heroProvider.Hero.gameObject);
+            
+            Object.Destroy(currentGun.gameObject);
+            
+            _heroProvider.ClearHero();
+        }
+
+        private void DestroyEnemies() => _enemyService.DestroyAll();
+
+        private void ExtractCamera() => _cameraProvider.MainCamera.transform.SetParent(null);
+
         private void CreateEnemies()
         {
             Enemy enemy = _enemyFactory.Create(null, _levelProvider.EnemySpawnPoint.position, Quaternion.identity);
             _enemyService.AddEnemy(enemy);
         }
-
-        public void Exit() { }
     }
 }

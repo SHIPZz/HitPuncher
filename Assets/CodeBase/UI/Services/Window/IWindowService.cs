@@ -1,5 +1,7 @@
-﻿using CodeBase.UI.AbstractWindow;
+﻿using System.Threading;
+using CodeBase.UI.AbstractWindow;
 using CodeBase.UI.Controllers;
+using Cysharp.Threading.Tasks;
 
 namespace CodeBase.UI.Services.Window
 {
@@ -17,5 +19,6 @@ namespace CodeBase.UI.Services.Window
         TWindow OpenWindow<TWindow>(bool onTop = false) where TWindow : AbstractWindowBase;
         void Close<TWindow>() where TWindow : AbstractWindowBase;
         void CloseAll();
+        UniTask<TWindow> OpenWindowAsync<TWindow>(bool onTop = false, float delay = 1f, CancellationToken token = default) where TWindow : AbstractWindowBase;
     }
 }

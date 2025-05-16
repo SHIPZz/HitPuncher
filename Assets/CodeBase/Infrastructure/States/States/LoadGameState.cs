@@ -22,7 +22,7 @@ namespace CodeBase.Infrastructure.States.States
 
         public void Enter()
         {
-            // _windowService.CloseAll();
+            _windowService.CloseAll();
             
             _sceneLoader.LoadScene(Scenes.Game, () =>_stateMachine.Enter<GameState>());
         }

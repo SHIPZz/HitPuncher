@@ -13,10 +13,6 @@ namespace CodeBase.Gameplay.Effects
     {
         [SerializeField] private EffectTypeId _soundTypeId = EffectTypeId.PunchEffect;
         
-        [Header("Position Settings")]
-        [SerializeField] private bool _useCustomPosition;
-        [SerializeField] private Vector3 _customPosition;
-        
         [SerializeField] private bool _addRandomOffset;
         [SerializeField] private float _randomOffsetRadius = 0.5f;
         
@@ -38,9 +34,7 @@ namespace CodeBase.Gameplay.Effects
 
         private void PlayEffect(RaycastHit hit)
         {
-            Vector3 position = _useCustomPosition ? 
-                transform.TransformPoint(_customPosition) : 
-                hit.point;
+            Vector3 position = hit.point;
 
             if (_addRandomOffset)
                 position += Random.insideUnitSphere * _randomOffsetRadius;
