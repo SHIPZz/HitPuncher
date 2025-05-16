@@ -1,4 +1,5 @@
 ﻿using CodeBase.Gameplay.Cameras;
+using CodeBase.Gameplay.Cameras.Configs;
 using UnityEngine;
 using Zenject;
 

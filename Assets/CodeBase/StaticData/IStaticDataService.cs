@@ -1,4 +1,5 @@
 ﻿using CodeBase.Gameplay.Effects;
+using CodeBase.Gameplay.Effects.Configs;
 using CodeBase.UI.AbstractWindow;
 using CodeBase.UI.Sound;
 using CodeBase.UI.Sound.Configs;

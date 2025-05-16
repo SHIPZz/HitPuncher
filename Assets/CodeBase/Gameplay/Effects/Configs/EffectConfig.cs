@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CodeBase.Gameplay.Effects
+namespace CodeBase.Gameplay.Effects.Configs
 {
     [CreateAssetMenu(fileName = "EffectConfig", menuName = "Configs/Effects/EffectConfig")]
     public class EffectConfig : ScriptableObject
